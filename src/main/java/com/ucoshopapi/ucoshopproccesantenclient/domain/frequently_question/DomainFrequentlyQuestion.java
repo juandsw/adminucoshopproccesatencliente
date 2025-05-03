@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "preguntas_frecuentes")
-public class UserDomainFrequentlyQuestion {
+public class DomainFrequentlyQuestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,9 @@ public class UserDomainFrequentlyQuestion {
     @Column(name = "respuesta")
     private List<String> respuestas;
 
-    public UserDomainFrequentlyQuestion() {}
+    public DomainFrequentlyQuestion() {}
 
-    public UserDomainFrequentlyQuestion(String titulo, String proceso, List<String> respuestas) {
+    public DomainFrequentlyQuestion(String titulo, String proceso, List<String> respuestas) {
         this.titulo = titulo;
         this.proceso = proceso;
         this.respuestas = respuestas;
