@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "respuestas")
-public class UserDomainAnswer {
+public class DomainAnswer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +16,9 @@ public class UserDomainAnswer {
     @Column(nullable = false)
     private String respuesta;
 
-    public UserDomainAnswer() {}
+    public DomainAnswer() {}
 
-    public UserDomainAnswer(Long preguntaId, String respuesta) {
+    public DomainAnswer(Long preguntaId, String respuesta) {
         this.preguntaId = preguntaId;
         this.respuesta = respuesta;
     }
