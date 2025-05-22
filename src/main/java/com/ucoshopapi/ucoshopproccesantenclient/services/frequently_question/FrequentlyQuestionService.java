@@ -1,23 +1,23 @@
 package com.ucoshopapi.ucoshopproccesantenclient.services.frequently_question;
 
-import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.UserDomainFrequentlyQuestion;
-import com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question.UserFrequentlyQuestionRepository;
+import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.DomainFrequentlyQuestion;
+import com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question.FrequentlyQuestionRepository;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserFrequentlyQuestionService {
+public class FrequentlyQuestionService {
 
-    private final UserFrequentlyQuestionRepository userFrequentlyQuestionRepository;
+    private final FrequentlyQuestionRepository userFrequentlyQuestionRepository;
 
-    public UserFrequentlyQuestionService(UserFrequentlyQuestionRepository userFrequentlyQuestionRepository) {
+    public FrequentlyQuestionService(FrequentlyQuestionRepository userFrequentlyQuestionRepository) {
         this.userFrequentlyQuestionRepository = userFrequentlyQuestionRepository;
     }
 
     public Map<String, Object> findAll() {
-        List<UserDomainFrequentlyQuestion> questions = userFrequentlyQuestionRepository.findAll();
+        List<DomainFrequentlyQuestion> questions = userFrequentlyQuestionRepository.findAll();
         Map<String, Object> response = new HashMap<>();
         if (questions.isEmpty()) {
             response.put("error", "No hay preguntas frecuentes registradas");
@@ -28,7 +28,7 @@ public class UserFrequentlyQuestionService {
         return response;
     }
 
-    public Map<String, Object> save(UserDomainFrequentlyQuestion question) {
+    public Map<String, Object> save(DomainFrequentlyQuestion question) {
         try {
             userFrequentlyQuestionRepository.save(question);
             Map<String, Object> response = new HashMap<>();

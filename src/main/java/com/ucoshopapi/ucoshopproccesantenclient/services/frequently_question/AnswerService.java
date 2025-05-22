@@ -1,23 +1,23 @@
 package com.ucoshopapi.ucoshopproccesantenclient.services.frequently_question;
 
-import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.UserDomainAnswer;
-import com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question.UserAnswerRepository;
+import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.DomainAnswer;
+import com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question.AnswerRepository;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserAnswerService {
+public class AnswerService {
 
-    private final UserAnswerRepository userAnswerRepository;
+    private final AnswerRepository userAnswerRepository;
 
-    public UserAnswerService(UserAnswerRepository userAnswerRepository) {
+    public AnswerService(AnswerRepository userAnswerRepository) {
         this.userAnswerRepository = userAnswerRepository;
     }
 
     public Map<String, Object> findAnswersByQuestionId(Long preguntaId) {
-        List<UserDomainAnswer> answers = userAnswerRepository.findByPreguntaId(preguntaId);
+        List<DomainAnswer> answers = userAnswerRepository.findByPreguntaId(preguntaId);
         Map<String, Object> response = new HashMap<>();
         if (answers.isEmpty()) {
             response.put("error", "No hay respuestas registradas");
@@ -28,7 +28,7 @@ public class UserAnswerService {
         return response;
     }
 
-    public Map<String, String> saveAnswer(UserDomainAnswer userDomainAnswer) {
+    public Map<String, String> saveAnswer(DomainAnswer userDomainAnswer) {
         userAnswerRepository.save(userDomainAnswer);
         Map<String, String> response = new HashMap<>();
         response.put("mensaje", "Respuesta agregada exitosamente");

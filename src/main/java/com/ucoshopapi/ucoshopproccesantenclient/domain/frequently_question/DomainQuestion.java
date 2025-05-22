@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "preguntas")
-public class UserDomainQuestion {
+public class DomainQuestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +16,9 @@ public class UserDomainQuestion {
     @Column(nullable = false)
     private String descripcion;
 
-    public UserDomainQuestion() {}
+    public DomainQuestion() {}
 
-    public UserDomainQuestion(String titulo, String descripcion) {
+    public DomainQuestion(String titulo, String descripcion) {
         this.titulo = titulo;
         this.descripcion = descripcion;
     }

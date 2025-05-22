@@ -1,7 +1,7 @@
 package com.ucoshopapi.ucoshopproccesantenclient.services.frequently_question;
 
-import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.UserDomainQuestion;
-import com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question.UserQuestionRepository;
+import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.DomainQuestion;
+import com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question.QuestionRepository;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
@@ -9,16 +9,16 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class UserQuestionService {
+public class QuestionService {
 
-    private final UserQuestionRepository userQuestionRepository;
+    private final QuestionRepository userQuestionRepository;
 
-    public UserQuestionService(UserQuestionRepository userQuestionRepository) {
+    public QuestionService(QuestionRepository userQuestionRepository) {
         this.userQuestionRepository = userQuestionRepository;
     }
 
     public Map<String, Object> findAll() {
-        List<UserDomainQuestion> questions = userQuestionRepository.findAll();
+        List<DomainQuestion> questions = userQuestionRepository.findAll();
         Map<String, Object> response = new HashMap<>();
         if (questions.isEmpty()) {
             response.put("error", "No hay preguntas registradas");
@@ -30,7 +30,7 @@ public class UserQuestionService {
     }
 
     public Map<String, Object> findById(Long id) {
-        Optional<UserDomainQuestion> question = userQuestionRepository.findById(id);
+        Optional<DomainQuestion> question = userQuestionRepository.findById(id);
         Map<String, Object> response = new HashMap<>();
         if (question.isPresent()) {
             response.put("mensaje", "Detalle de la pregunta consultada");
