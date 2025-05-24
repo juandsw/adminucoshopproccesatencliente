@@ -4,14 +4,15 @@ import com.ucoshopapi.ucoshopproccesantenclient.domain.invoice.Invoice;
 import com.ucoshopapi.ucoshopproccesantenclient.domain.payment_management.PaymentDomain;
 import com.ucoshopapi.ucoshopproccesantenclient.repositories.invoice.InvoiceRepository;
 import com.ucoshopapi.ucoshopproccesantenclient.repositories.payment_management.PaymentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.Date;
 
 @Service
 @Transactional
@@ -39,6 +40,10 @@ public class InvoiceService {
 
         UUID paymentId = invoice.getPayment().getIdPayment();
 
+        if (paymentId == null) {
+            throw new IllegalArgumentException("El payment no puede ser nulo");
+        }
+
         PaymentDomain payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new RuntimeException("El pago ingresado no existe en el sistema"));
 
@@ -60,19 +65,25 @@ public class InvoiceService {
         invoiceRepository.deleteById(idInvoice);
     }
 
-    public Invoice patchInvoiceDate(UUID currentId, Date newDate) {
+    public void patchInvoiceDate(UUID currentId, Date newDate) {
 
-        Invoice invoice = findById(currentId);
-        logger.info("Fecha antes de la actualización: {}", invoice.getDate());
-
+        Invoice invoice = validateInvoiceExistence(currentId);
+        dateValidation(newDate);
         invoice.setDate(newDate);
-        invoiceRepository.saveAndFlush(invoice);
+        invoiceRepository.save(invoice);
 
-        logger.info("Fecha después de la actualización: {}", invoice.getDate());
-        return invoice;
     }
 
-    public Invoice validateInvoiceExistence(UUID currentId) {
-        return invoiceRepository.findById(currentId).orElseThrow(() -> new RuntimeException("La factura no existe"));
+    private Invoice validateInvoiceExistence(UUID currentId) {
+        return invoiceRepository.findById(currentId).orElseThrow(() -> new EntityNotFoundException("La factura no existe"));
+    }
+
+    private void dateValidation(Date date) {
+        if (date == null) {
+            throw new IllegalArgumentException("La fecha no puede estar vacia.");
+        }
+        if (date.after(new Date())) {
+            throw new IllegalArgumentException("La fecha no puede ser en el futuro.");
+        }
     }
 }
