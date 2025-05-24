@@ -3,7 +3,7 @@ package com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "respuestas")
+@Table(name = "answer")
 public class DomainAnswer {
 
     @Id

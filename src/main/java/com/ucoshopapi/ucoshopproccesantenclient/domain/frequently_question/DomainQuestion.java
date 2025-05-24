@@ -3,11 +3,12 @@ package com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "preguntas")
+@Table(name = "question")
 public class DomainQuestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idPregunta")
     private Long id;
 
     @Column(nullable = false)

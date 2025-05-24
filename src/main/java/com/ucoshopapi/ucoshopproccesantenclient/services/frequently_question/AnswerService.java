@@ -4,7 +4,6 @@ import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.Domai
 import com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question.AnswerRepository;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -14,18 +13,6 @@ public class AnswerService {
 
     public AnswerService(AnswerRepository userAnswerRepository) {
         this.userAnswerRepository = userAnswerRepository;
-    }
-
-    public Map<String, Object> findAnswersByQuestionId(Long preguntaId) {
-        List<DomainAnswer> answers = userAnswerRepository.findByPreguntaId(preguntaId);
-        Map<String, Object> response = new HashMap<>();
-        if (answers.isEmpty()) {
-            response.put("error", "No hay respuestas registradas");
-        } else {
-            response.put("mensaje", "Respuestas consultadas exitosamente");
-            response.put("datos", answers);
-        }
-        return response;
     }
 
     public Map<String, String> saveAnswer(DomainAnswer userDomainAnswer) {
