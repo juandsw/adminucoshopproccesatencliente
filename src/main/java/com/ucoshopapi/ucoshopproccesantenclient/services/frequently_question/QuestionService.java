@@ -1,43 +1,42 @@
 package com.ucoshopapi.ucoshopproccesantenclient.services.frequently_question;
 
+
 import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.DomainQuestion;
 import com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question.QuestionRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
+import java.util.*;
 
 @Service
 public class QuestionService {
 
-    private final QuestionRepository userQuestionRepository;
+    private final QuestionRepository questionRepository;
 
-    public QuestionService(QuestionRepository userQuestionRepository) {
-        this.userQuestionRepository = userQuestionRepository;
+    public QuestionService(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
     }
 
-    public Map<String, Object> findAll() {
-        List<DomainQuestion> questions = userQuestionRepository.findAll();
+    public ResponseEntity<Map<String, Object>> saveQuestion(DomainQuestion question) {
         Map<String, Object> response = new HashMap<>();
-        if (questions.isEmpty()) {
-            response.put("error", "No hay preguntas registradas");
-        } else {
-            response.put("mensaje", "Listado de preguntas consultado exitosamente");
-            response.put("datos", questions);
-        }
-        return response;
-    }
 
-    public Map<String, Object> findById(Long id) {
-        Optional<DomainQuestion> question = userQuestionRepository.findById(id);
-        Map<String, Object> response = new HashMap<>();
-        if (question.isPresent()) {
-            response.put("mensaje", "Detalle de la pregunta consultada");
-            response.put("datos", question.get());
-        } else {
-            response.put("error", "La pregunta no existe");
+        if (question == null || question.getTitulo() == null || question.getTitulo().trim().isEmpty()) {
+            response.put("error", "El título de la pregunta no puede estar vacío.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-        return response;
+        if (question.getDescripcion() == null || question.getDescripcion().trim().isEmpty()) {
+            response.put("error", "La descripción de la pregunta no puede estar vacía.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            questionRepository.save(question);
+            response.put("mensaje", "Respuesta enviada exitosamente al publicador.");
+            return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            response.put("error", "Error interno del servidor al procesar la respuesta: " + e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

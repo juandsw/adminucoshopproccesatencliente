@@ -18,7 +18,7 @@ public class PaymentDomain {
     private UUID idPayment;
 
     @Column(name = "status", nullable = false)
-    private Boolean status;
+    private String status;
 
     @Column(name = "description", nullable = false)
     private String description;
@@ -41,7 +41,7 @@ public class PaymentDomain {
         super();
     }
 
-    public PaymentDomain(UUID idPayment, Boolean status, String description, double total, String shippingAddress, PaymentMethodDomain paymentMethod, BuyDomain buy) {
+    public PaymentDomain(UUID idPayment, String status, String description, double total, String shippingAddress, PaymentMethodDomain paymentMethod, BuyDomain buy) {
         this.idPayment = idPayment;
         this.status = status;
         this.description = description;
