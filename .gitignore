@@ -1,0 +1,23 @@
+# Gradle build output
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Optional: Ignore build directories
+build/
+out/
+
+# IntelliJ IDEA / Android Studio
+*.iml
+.idea/
+*.iws
+*.ipr
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db

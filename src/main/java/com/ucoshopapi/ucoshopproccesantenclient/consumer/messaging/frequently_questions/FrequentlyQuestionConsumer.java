@@ -1,4 +1,4 @@
-package com.ucoshopapi.ucoshopproccesantenclient.messenger.frequently_questions;
+package com.ucoshopapi.ucoshopproccesantenclient.consumer.messaging.frequently_questions;
 
 import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.DomainFrequentlyQuestion;
 import com.ucoshopapi.ucoshopproccesantenclient.services.frequently_question.FrequentlyQuestionService;
@@ -25,7 +25,7 @@ public class FrequentlyQuestionConsumer {
     public void receiveMassegeProcessFrequentlyQuestion(String message) {
         try {
             System.out.println("Llego el mensaje: " + message);
-            frequentlyQuestionService.saveFrequentlyQuestion(ObjetoDeMensaje(message).get());
+            frequentlyQuestionService.saveQuestions(ObjetoDeMensaje(message).get());
         } catch (Exception e) {
             e.printStackTrace();
         }

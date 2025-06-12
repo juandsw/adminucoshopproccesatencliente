@@ -1,4 +1,4 @@
-package com.ucoshopapi.ucoshopproccesantenclient.messenger.frequently_questions;
+package com.ucoshopapi.ucoshopproccesantenclient.consumer.messaging.frequently_questions;
 
 import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.DomainAnswer;
 import com.ucoshopapi.ucoshopproccesantenclient.services.frequently_question.AnswerService;

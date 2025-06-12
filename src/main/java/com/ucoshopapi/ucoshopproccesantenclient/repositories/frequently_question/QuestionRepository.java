@@ -1,7 +1,7 @@
-package com.ucoshopapi.ucoshopapi.repositories.frequently_question;
+package com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question;
 
 
-import com.ucoshopapi.ucoshopapi.domain.frequently_question.DomainQuestion;
+import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.DomainQuestion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
