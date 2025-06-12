@@ -1,23 +1,40 @@
-# Gradle build output
-.gradle/
-!gradle/wrapper/gradle-wrapper.jar
-
-# Optional: Ignore build directories
+HELP.md
+.gradle
 build/
-out/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# IntelliJ IDEA / Android Studio
-*.iml
-.idea/
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
 *.iws
+*.iml
 *.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
-# VSCode
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
 .vscode/
-
-# Logs
-*.log
-
-# OS-specific files
-.DS_Store
-Thumbs.db
+s r c / m a i n / r e s o u r c e s / u s e r s . p r o p e r t i e s 
+ 
+ 
