@@ -1,33 +1,37 @@
-.gradle/
+HELP.md
+.gradle
 build/
-.gradle/.lock
-.gradle/**/.bin
-.gradle/buildOutputCleanup/
-.gradle/file-system.probe
-.idea/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
 *.ipr
-*.iws
-.classpath
-.project
-.settings/
-bin/
-.m2/
-target/
-Archivos de registro
-*.log
-logs/
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.class
-*.bak
-*.orig
-*.swp
-*.swo
-*.properties.local
-*.yml.local
-.DS_Store
-Thumbs.db
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
