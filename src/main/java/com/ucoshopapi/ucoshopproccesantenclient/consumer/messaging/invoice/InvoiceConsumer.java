@@ -23,68 +23,36 @@ public class InvoiceConsumer {
     }
 
     @RabbitListener(queues = {"apiclient.process.save.client.qu"})
-    public String saveInvoice(String messageBody) {
-        try {
+    public void saveInvoice(String messageBody) {
             Optional<Invoice> invoiceOpt = mapper.ejecutar(messageBody, Invoice.class);
 
-            if (invoiceOpt.isPresent()) {
+
                 Invoice invoice = invoiceOpt.get();
                 invoiceService.saveInvoice(invoice);
                 log.info("Save " + invoice);
-                return "OK";
-            } else {
-                String error = "No se pudo deserializar el mensaje a Invoice.";
-                log.error(error);
-                return error;
-            }
-        } catch (Exception ex) {
-            String error = "Error al guardar factura: " + ex.getMessage();
-            log.error(error, ex);
-            return error;
-        }
+
     }
 
     @RabbitListener(queues = {"apiclient.process.patch.client.qu"})
-    public String updateInvoice(String messageBody) {
-        try {
+    public void updateInvoice(String messageBody) {
+
             Optional<Invoice> invoiceOpt = mapper.ejecutar(messageBody, Invoice.class);
 
-            if (invoiceOpt.isPresent()) {
                 Invoice invoice = invoiceOpt.get();
                 invoiceService.patchInvoiceDate(invoice.getIdInvoice(), invoice.getDate());
                 log.info("Patch " + invoice);
-                return "OK";
-            } else {
-                String error = "No se pudo deserializar el mensaje a Invoice.";
-                log.error(error);
-                return error;
-            }
-        } catch (Exception ex) {
-            String error = "Error al actualizar factura: " + ex.getMessage();
-            log.error(error, ex);
-            return error;
-        }
+
+
     }
 
     @RabbitListener(queues = {"apiclient.process.delete.client.qu"})
-    public String deleteInvoice(String messageBody) {
-        try {
+    public void deleteInvoice(String messageBody) {
+
             Optional<Invoice> invoiceOpt = mapper.ejecutar(messageBody, Invoice.class);
 
-            if (invoiceOpt.isPresent()) {
                 Invoice invoice = invoiceOpt.get();
                 invoiceService.deleteInvoice(invoice.getIdInvoice());
                 log.info("Delete " + invoice);
-                return "OK";
-            } else {
-                String error = "No se pudo deserializar el mensaje a Invoice.";
-                log.error(error);
-                return error;
-            }
-        } catch (Exception ex) {
-            String error = "Error al eliminar factura: " + ex.getMessage();
-            log.error(error, ex);
-            return error;
-        }
+
     }
 }
