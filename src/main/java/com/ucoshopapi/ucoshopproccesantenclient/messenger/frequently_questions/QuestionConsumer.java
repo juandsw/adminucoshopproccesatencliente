@@ -25,7 +25,7 @@ public class QuestionConsumer {
     @RabbitListener(queues = "${client.question.process.queue-name-save}")
     public void receiveMessageProcessQuestion(String message) {
         try {
-            System.out.println("Llegó el mensaje de respuesta: " + message);
+            System.out.println("Llegó el mensaje de Pregunta: " + message);
             Optional<DomainQuestion> domainQuestionOptional = ObjetoDeMensaje(message);
             if (domainQuestionOptional.isPresent()) {
                 userQuestionService.saveQuestion(domainQuestionOptional.get());
@@ -33,7 +33,7 @@ public class QuestionConsumer {
                 System.err.println("No se pudo deserializar el mensaje a DomainQuestion: " + message);
             }
         } catch (Exception e) {
-            System.err.println("Error al procesar el mensaje de respuesta: " + e.getMessage());
+            System.err.println("Error al procesar el mensaje de Pregunta: " + e.getMessage());
             e.printStackTrace();
         }
     }
