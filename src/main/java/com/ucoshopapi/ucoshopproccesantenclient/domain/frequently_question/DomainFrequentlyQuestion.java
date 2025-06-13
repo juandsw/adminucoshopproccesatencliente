@@ -19,7 +19,8 @@ public class DomainFrequentlyQuestion {
     @Column(nullable = false)
     private String proceso;
 
-    @OneToMany(mappedBy = "frequentlyQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "idPreguntaFrecuente")
     private List<DomainAnswerFrequently> respuestaFrecuente = new ArrayList<>();
 
     public DomainFrequentlyQuestion() {
@@ -29,39 +30,38 @@ public class DomainFrequentlyQuestion {
         this.id = id;
         this.titulo = titulo;
         this.proceso = proceso;
-        if (respuestaFrecuente != null) {
-            this.respuestaFrecuente = respuestaFrecuente;
-        }
-    }
-    public Long getId() {
-        return id;
+        this.respuestaFrecuente = respuestaFrecuente != null ? respuestaFrecuente : new ArrayList<>();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     public String getProceso() {
         return proceso;
-    }
-
-    public void setProceso(String proceso) {
-        this.proceso = proceso;
     }
 
     public List<DomainAnswerFrequently> getRespuestaFrecuente() {
         return respuestaFrecuente;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setProceso(String proceso) {
+        this.proceso = proceso;
+    }
+
     public void setRespuestaFrecuente(List<DomainAnswerFrequently> respuestaFrecuente) {
-        this.respuestaFrecuente = (respuestaFrecuente != null) ? respuestaFrecuente : new ArrayList<>();
+        this.respuestaFrecuente = respuestaFrecuente;
     }
 }

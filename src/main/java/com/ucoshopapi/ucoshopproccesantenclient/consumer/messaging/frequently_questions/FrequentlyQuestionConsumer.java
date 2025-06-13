@@ -25,7 +25,7 @@ public class FrequentlyQuestionConsumer {
     public void receiveMassegeProcessFrequentlyQuestion(String message) {
         try {
             System.out.println("Llego el mensaje: " + message);
-            frequentlyQuestionService.saveQuestions(ObjetoDeMensaje(message).get());
+            frequentlyQuestionService.save(ObjetoDeMensaje(message).get());
         } catch (Exception e) {
             e.printStackTrace();
         }
