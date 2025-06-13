@@ -19,7 +19,7 @@ public class ReceiverPqrs {
         this.mapperJsonObject = mapperJsonObject;
     }
 
-    @RabbitListener(queues = "${pqrsprocesador.message-sendmessage-qu}")
+    @RabbitListener(queues = "${proccesatenclient.message.sendmessage-qu}")
     public void receiveMessageProcessClient(String message) {
         try {
             messageService.sendMessage(obtenerObjetoDeMensaje(message).get());
