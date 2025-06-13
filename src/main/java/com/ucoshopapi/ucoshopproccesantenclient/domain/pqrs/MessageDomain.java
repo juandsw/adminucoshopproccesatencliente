@@ -27,26 +27,18 @@ public class MessageDomain {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "timestamp", nullable = false)
-    private Date timestamp = new Date();
+    @Column(name = "timestamp")
+    private Date timestamp;
 
-    private MessageDomain(Long id, PQRSDomain pqrsId, String content) {
-        setId(id);
-        setPqrsId(pqrsId);
-        setSender("Admin");
-        setContent(content);
-        setTimestamp(new Date());
+    public MessageDomain(Long id, PQRSDomain pqrsId, String sender, String content, Date timestamp) {
+        this.id = id;
+        this.pqrsId = pqrsId;
+        this.sender = sender;
+        this.content = content;
+        this.timestamp = timestamp;
     }
 
     public MessageDomain(){}
-
-    public static MessageDomain build(final Long id, final PQRSDomain pqrsDomain, final String content) {
-        return new MessageDomain(id, pqrsDomain, content);
-    }
-
-    public static MessageDomain buildDummy() {
-        return new MessageDomain(0L, PQRSDomain.buildDummy(), UtilText.EMPTY);
-    }
 
     public Long getId() {
         return id;
@@ -93,4 +85,3 @@ public class MessageDomain {
         return this;
     }
 }
-
