@@ -6,6 +6,8 @@ import com.ucoshopapi.ucoshopproccesantenclient.repositories.pqrs.MessageReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,6 +24,7 @@ public class MessageService {
     }
 
     public MessageDomain sendMessage(MessageDomain messageDomain) {
+        messageDomain.setTimestamp(new Date());
         return messageRepository.save(messageDomain);
     }
 }

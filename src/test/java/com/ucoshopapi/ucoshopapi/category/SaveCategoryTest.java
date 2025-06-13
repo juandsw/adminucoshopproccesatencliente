@@ -1,6 +1,6 @@
-package com.ucoshopapi.ucoshopapi.category;
+package ;
 
-import com.ucoshopapi.ucoshopapi.domain.category.CategoryDomain;
+import com.ucoshopapi.ucoshopapi.category.CategoryDomain;
 import com.ucoshopapi.ucoshopapi.services.category.CategoryService;
 import org.junit.jupiter.api.Test;
 
