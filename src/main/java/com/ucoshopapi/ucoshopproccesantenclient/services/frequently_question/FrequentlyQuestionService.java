@@ -1,8 +1,11 @@
 package com.ucoshopapi.ucoshopproccesantenclient.services.frequently_question;
 
+
 import com.ucoshopapi.ucoshopproccesantenclient.domain.frequently_question.DomainFrequentlyQuestion;
 import com.ucoshopapi.ucoshopproccesantenclient.repositories.frequently_question.FrequentlyQuestionRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,14 +13,14 @@ import java.util.Map;
 @Service
 public class FrequentlyQuestionService {
 
-    private final FrequentlyQuestionRepository userFrequentlyQuestionRepository;
+    private final FrequentlyQuestionRepository repository;
 
-    public FrequentlyQuestionService(FrequentlyQuestionRepository userFrequentlyQuestionRepository) {
-        this.userFrequentlyQuestionRepository = userFrequentlyQuestionRepository;
+    public FrequentlyQuestionService(FrequentlyQuestionRepository repository) {
+        this.repository = repository;
     }
 
     public Map<String, Object> findAll() {
-        List<DomainFrequentlyQuestion> questions = userFrequentlyQuestionRepository.findAll();
+        List<DomainFrequentlyQuestion> questions = repository.findAll();
         Map<String, Object> response = new HashMap<>();
         if (questions.isEmpty()) {
             response.put("error", "No hay preguntas frecuentes registradas");
@@ -29,16 +32,14 @@ public class FrequentlyQuestionService {
     }
 
     public Map<String, Object> save(DomainFrequentlyQuestion question) {
+        Map<String, Object> response = new HashMap<>();
         try {
-            userFrequentlyQuestionRepository.save(question);
-            Map<String, Object> response = new HashMap<>();
-            response.put("mensaje", "Pregunta frecuente agregada exitosamente");
-            return response;
+            DomainFrequentlyQuestion saved = repository.save(question);
+            response.put("mensaje", "Pregunta frecuente guardada exitosamente");
+            response.put("frequentlyQuestion", saved);
         } catch (Exception e) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("error", "No se pudo agregar la pregunta frecuente");
-            return errorResponse;
+            response.put("error", "No se pudo guardar la pregunta frecuente: " + e.getMessage());
         }
+        return response;
     }
 }
-
