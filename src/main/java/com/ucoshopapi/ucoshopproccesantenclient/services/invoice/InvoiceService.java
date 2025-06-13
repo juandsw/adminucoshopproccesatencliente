@@ -20,11 +20,10 @@ public class InvoiceService {
 
     private static final Logger logger = LoggerFactory.getLogger(InvoiceService.class);
     private final InvoiceRepository invoiceRepository;
-    private final PaymentRepository paymentRepository;
 
-    public InvoiceService(InvoiceRepository invoiceRepository, PaymentRepository paymentRepository) {
+
+    public InvoiceService(InvoiceRepository invoiceRepository) {
         this.invoiceRepository = invoiceRepository;
-        this.paymentRepository = paymentRepository;
     }
 
     public List<Invoice> findAll() {
@@ -38,37 +37,18 @@ public class InvoiceService {
     @Transactional
     public void saveInvoice(Invoice invoice) {
 
-        UUID paymentId = invoice.getPayment().getIdPayment();
-
-        if (paymentId == null) {
-            throw new IllegalArgumentException("El payment no puede ser nulo");
-        }
-
-        PaymentDomain payment = paymentRepository.findById(paymentId)
-                .orElseThrow(() -> new RuntimeException("El pago ingresado no existe en el sistema"));
-
-        if (invoiceRepository.existsByPayment(payment)) {
-            throw new RuntimeException("Este pago ya tiene una factura asociada");
-        }
-
-        invoice.setPayment(payment);
-
         invoiceRepository.save(invoice);
     }
 
 
     public void deleteInvoice(UUID idInvoice) {
 
-        if (!invoiceRepository.existsById(idInvoice)) {
-            throw new RuntimeException("No se encontró la factura con ID: " + idInvoice);
-        }
         invoiceRepository.deleteById(idInvoice);
     }
 
     public void patchInvoiceDate(UUID currentId, Date newDate) {
 
-        Invoice invoice = validateInvoiceExistence(currentId);
-        dateValidation(newDate);
+        Invoice invoice = new Invoice();
         invoice.setDate(newDate);
         invoiceRepository.save(invoice);
 
@@ -78,12 +58,5 @@ public class InvoiceService {
         return invoiceRepository.findById(currentId).orElseThrow(() -> new EntityNotFoundException("La factura no existe"));
     }
 
-    private void dateValidation(Date date) {
-        if (date == null) {
-            throw new IllegalArgumentException("La fecha no puede estar vacia.");
-        }
-        if (date.after(new Date())) {
-            throw new IllegalArgumentException("La fecha no puede ser en el futuro.");
-        }
-    }
+
 }
